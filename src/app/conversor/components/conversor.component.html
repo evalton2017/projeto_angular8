@@ -1,0 +1,40 @@
+<div id="conversor">
+    <div  *ngIf="possuiErro" class="alert alert-danger"
+        role="alert">
+        Erro obtendo dados.Tente novamente.
+    </div>
+    <div class="card">
+        <div class="card-header bg-info">
+            Selecione a moeda a ser convertida
+        </div>
+        <div class="card-body text-center">
+            <form ng-form #conversaoForm="ngForm" class="form-inline" >
+                <input type="number" [(ngModel)]="conversao.valor" name="valor" class="form-control text-right" 
+                placeholder="0" required>
+                <select name="moedaDe" class="form-control" required style="margin-left: 5px; margin-right: 5px;"
+                [(ngModel)]="conversao.moedaDe">
+                    <option
+                        *ngFor="let moeda of moedas"
+                        [value]="moeda.sigla">
+                        {{moeda.sigla}} - {{moeda.descricao}}
+                    </option>
+                </select>
+                <strong> -> </strong>
+                <select name="moedaPara" class="form-control" required style="margin-left: 5px; margin-right: 5px;"
+                    [(ngModel)]="conversao.moedaPara">
+                    <option
+                        *ngFor="let moeda of moedas"
+                        [value]="moeda.sigla">
+                        {{moeda.sigla}} - {{moeda.descricao}}
+
+                    </option>
+                </select>
+                <br/><br/>
+                <input type="submit" value="Converter" class="btn btn-success" data-togle="modal" data-target="#modalCotacao"
+                (click)="converter()" [disabled]="!conversaoForm.form.valid">
+
+                {{conversaoResponse | json}}
+            </form>
+        </div>
+    </div>
+</div>
